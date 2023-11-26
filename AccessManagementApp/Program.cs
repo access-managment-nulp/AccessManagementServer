@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
@@ -12,7 +14,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 
 builder.Services.AddDbContext<AccessManagementDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionAccessManagement"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
 });
 
 builder.Services.AddControllers();

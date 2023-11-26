@@ -16,6 +16,8 @@ public partial class Access
     [Column("aName")]
     public string Name { get; set; } = null!;
 
-    [InverseProperty("Access")]
-    public virtual ICollection<AccessGroup> AccessGroups { get; set; } = new List<AccessGroup>();
+    [InverseProperty("Accesses")]
+    public virtual ICollection<AccessGroup> AccessGroups { get; set; } = null!;
+    [InverseProperty("Accesses")]
+    public virtual ICollection<Speciality> Specialities { get; set; } = null!;
 }

@@ -16,10 +16,9 @@ public partial class Speciality
     [Column("sName")]
     public string Name { get; set; } = null!;
 
-    [Column("accessGroupId")]
-    public int AccessGroupId { get; set; }
-
-    [ForeignKey("AccessGroupId")]
     [InverseProperty("Specialities")]
-    public virtual AccessGroup AccessGroup { get; set; } = null!;
+    public virtual ICollection<AccessGroup> AccessGroups { get; set; } = null!;
+
+    [InverseProperty("Specialities")]
+    public virtual ICollection<Access> Accesses { get; set; } = null!;
 }
