@@ -2,6 +2,7 @@
 using AccessManagementApp.Repository.Models;
 using AccessManagementApp.Services.Classes;
 using AccessManagementApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,6 +11,7 @@ namespace AccessManagementApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AccessGroupsController : ControllerBase
     {
         private readonly IAccessGroupService _accessGroupService;

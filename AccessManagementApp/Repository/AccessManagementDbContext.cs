@@ -15,6 +15,7 @@ public partial class AccessManagementDbContext : DbContext
     public virtual DbSet<Access> Accesses { get; set; }
     public virtual DbSet<AccessGroup> AccessGroups { get; set; }
     public virtual DbSet<Speciality> Specialities { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         IConfigurationRoot configuration = new ConfigurationBuilder()
