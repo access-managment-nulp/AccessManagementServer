@@ -2,6 +2,7 @@ using AccessManagementApp;
 using AccessManagementApp.Repositories.Classes;
 using AccessManagementApp.Repositories.Interfaces;
 using AccessManagementApp.Repository;
+using AccessManagementApp.Repository.Facade;
 using AccessManagementApp.Services.Classes;
 using AccessManagementApp.Services.Interfaces;
 using AutoMapper;
@@ -87,6 +88,8 @@ builder.Services.AddScoped<ISpecialityService, SpecialityService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>

@@ -10,7 +10,7 @@ namespace AccessManagementTests
 {
     public class Tests
     {
-        AccessGroupRepositoryMock _accessGroupRepositoryMock;
+        UnitOfWorkMock _unitOfWorkMock;
         IAccessGroupService _accessGroupService;
         IMapper mapper;
         List<Access> Accesses { get; set; }
@@ -55,7 +55,7 @@ namespace AccessManagementTests
                 }
             };
 
-            _accessGroupRepositoryMock = new AccessGroupRepositoryMock(AccessGroups);
+            _unitOfWorkMock = new UnitOfWorkMock(AccessGroups);
             
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -63,7 +63,7 @@ namespace AccessManagementTests
             });
 
             mapper = mappingConfig.CreateMapper();
-            _accessGroupService = new AccessGroupService(_accessGroupRepositoryMock, mapper);
+            _accessGroupService = new AccessGroupService(_unitOfWorkMock, mapper);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace AccessManagementTests
 
             await _accessGroupService.Create(mapper.Map<CreateAccessGroupModel>(accessGroup));
 
-            var actualAccessGroups = (await _accessGroupRepositoryMock.GetAll()).ToList();
+            var actualAccessGroups = (await _unitOfWorkMock.AccessGroups.GetAll()).ToList();
             
             accessGroup.Id = actualAccessGroups.Max(x => x.Id);
 
@@ -157,7 +157,7 @@ namespace AccessManagementTests
 
             var actual = await _accessGroupService.Delete(agInput.Id);
 
-            CollectionAssert.DoesNotContain(await _accessGroupRepositoryMock.GetAll(), actual);
+            CollectionAssert.DoesNotContain(await _unitOfWorkMock.AccessGroups.GetAll(), actual);
         }
 
         [Test]
@@ -214,7 +214,7 @@ namespace AccessManagementTests
 
             await _accessGroupService.Update(mapper.Map<UpdateAccessGroupModel>(accessGroup));
 
-            var actualAccessGroups = (await _accessGroupRepositoryMock.GetAll()).ToList();
+            var actualAccessGroups = (await _unitOfWorkMock.AccessGroups.GetAll()).ToList();
 
             var expectedResult = AccessGroups.ToList();
 
