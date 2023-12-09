@@ -77,13 +77,8 @@ builder.Services.AddSwaggerGen(config =>
     });
 });
 
-builder.Services.AddScoped<IAccessRepository, AccessRepository>();
 builder.Services.AddScoped<IAccessService, AccessService>();
-
-builder.Services.AddScoped<IAccessGroupRepository, AccessGroupRepository>();
 builder.Services.AddScoped<IAccessGroupService, AccessGroupService>();
-
-builder.Services.AddScoped<ISpecialityRepository, SpecialityRepository>();
 builder.Services.AddScoped<ISpecialityService, SpecialityService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();

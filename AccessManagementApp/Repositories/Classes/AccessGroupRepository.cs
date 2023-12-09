@@ -7,8 +7,16 @@ namespace AccessManagementApp.Repositories.Classes
 {
     public class AccessGroupRepository : IAccessGroupRepository
     {
+        private static AccessGroupRepository _instance;
+        public static AccessGroupRepository GetInstance(AccessManagementDbContext dbContext) {
+            if(_instance == null) {
+                _instance = new(dbContext);
+            }
+            return _instance;
+        }
+
         private readonly AccessManagementDbContext _dbContext;
-        public AccessGroupRepository(AccessManagementDbContext dbContext)
+        protected AccessGroupRepository(AccessManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
