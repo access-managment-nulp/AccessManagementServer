@@ -15,9 +15,9 @@ namespace AccessManagementApp.Repository.Facade
         public IAccessRepository? _accesses;
         public IAccessGroupRepository? _accessGroups;
         public ISpecialityRepository? _specialities;
-        public IAccessRepository Accesses => _accesses ??= AccessRepository.GetInstance(_context);
-        public IAccessGroupRepository AccessGroups => _accessGroups ??= AccessGroupRepository.GetInstance(_context);
-        public ISpecialityRepository Specialities => _specialities ??= SpecialityRepository.GetInstance(_context);
+        public IAccessRepository Accesses => _accesses ??= new AccessRepository(_context);
+        public IAccessGroupRepository AccessGroups => _accessGroups ??= new AccessGroupRepository(_context);
+        public ISpecialityRepository Specialities => _specialities ??= new SpecialityRepository(_context);
 
         public AccessManagementDbContext Context => _context;
 

@@ -7,15 +7,8 @@ namespace AccessManagementApp.Repositories.Classes
 {
     public class AccessRepository : IAccessRepository
     {
-        private static AccessRepository _instance;
-        public static AccessRepository GetInstance(AccessManagementDbContext dbContext) {
-            if(_instance == null) {
-                _instance = new(dbContext);
-            }
-            return _instance;
-        }
         private readonly AccessManagementDbContext _dbContext;
-        protected AccessRepository(AccessManagementDbContext dbContext)
+        public AccessRepository(AccessManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }

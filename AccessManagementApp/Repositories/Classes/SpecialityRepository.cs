@@ -7,13 +7,6 @@ namespace AccessManagementApp.Repositories.Classes
 {
     public class SpecialityRepository : ISpecialityRepository
     {
-        private static SpecialityRepository _instance;
-        public static SpecialityRepository GetInstance(AccessManagementDbContext dbContext) {
-            if(_instance == null) {
-                _instance = new(dbContext);
-            }
-            return _instance;
-        }
         
         private readonly AccessManagementDbContext _dbContext;
         public SpecialityRepository(AccessManagementDbContext dbContext)
