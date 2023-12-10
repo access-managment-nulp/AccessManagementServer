@@ -1,4 +1,5 @@
 using AccessManagementApp;
+using AccessManagementApp.Logger;
 using AccessManagementApp.Repositories.Classes;
 using AccessManagementApp.Repositories.Interfaces;
 using AccessManagementApp.Repository;
@@ -86,6 +87,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddSingleton<LogMiddleware>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
@@ -93,7 +95,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 }));
 
 var app = builder.Build();
-
+app.UseMiddleware<LogMiddleware>();
 
 
 // Configure the HTTP request pipeline.
@@ -102,6 +104,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 

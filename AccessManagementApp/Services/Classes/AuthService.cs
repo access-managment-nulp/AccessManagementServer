@@ -35,6 +35,7 @@ namespace AccessManagementApp.Services.Classes
 
         public async Task<AuthUser> Login(LoginModel model)
         {
+            throw new Exception("lalalalla");
             var user = await _userRepository.GetUserByEmail(model.Email);
             if(user == null)
             {
