@@ -1,11 +1,13 @@
 ﻿
+using AccessManagementApp.Logger;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace AccessManagementApp
 {
     public class LogMiddleware : IMiddleware
     {
-        private readonly Logger.ILogger _logger = Logger.Logger.Instance;
+        private readonly ICustomLogger _logger = SingletonLogger.GetInstance();
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -14,13 +16,12 @@ namespace AccessManagementApp
             }
             catch(Exception ex)
             {
-                _logger.Log(ex.Message);
-
+                _logger.Log($"Catch exception in path: {context.Request.Path}. Exception message: {ex.Message}");
                 var problemDetails = new ProblemDetails
                 {
                     Status = StatusCodes.Status500InternalServerError,
                     Title = "Server Error",
-                    Detail = $"Hello from Middleware: {ex.Message}"
+                    Detail = ex.Message
                 };
 
                 context.Response.StatusCode =

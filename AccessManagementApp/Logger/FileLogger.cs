@@ -1,6 +1,6 @@
 ﻿namespace AccessManagementApp.Logger
 {
-    public class FileLogger : ILogger
+    public class FileLogger : ICustomLogger
     {
         private string filePath;
         public FileLogger(string filePath)
@@ -10,7 +10,7 @@
 
         public void Log(string message)
         {
-            File.AppendAllText(filePath, message);
+            File.AppendAllText(filePath, $"{message}\n");
         }
     }
 }

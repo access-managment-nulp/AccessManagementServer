@@ -1,16 +1,16 @@
 ﻿namespace AccessManagementApp.Logger
 {
-    public class DateLogDecorator : ILogger
+    public class DateLogDecorator : ICustomLogger
     {
-        private readonly ILogger _logger;
+        private readonly ICustomLogger _logger;
 
-        public DateLogDecorator(ILogger logger)
+        public DateLogDecorator(ICustomLogger logger)
         {
             _logger = logger;
         }
         public void Log(string message)
         {
-            var datedMessage = $"{DateTime.Now:O}: {message}";
+            var datedMessage = $"{DateTime.Now:O}: {message}"; 
             
             _logger.Log(datedMessage);
         }

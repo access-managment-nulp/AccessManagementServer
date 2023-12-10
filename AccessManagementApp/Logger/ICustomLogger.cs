@@ -1,6 +1,6 @@
 ﻿namespace AccessManagementApp.Logger
 {
-    public interface ILogger
+    public interface ICustomLogger
     {
         void Log(string message); 
     }
