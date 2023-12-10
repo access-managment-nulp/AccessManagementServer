@@ -26,76 +26,46 @@ namespace AccessManagementApp.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<Speciality>> GetAll()
         {
-            try
-            {
-                var specialities = await _specialityService.GetAll();
-                return Ok(specialities);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var specialities = await _specialityService.GetAll();
+            return Ok(specialities);
+
         }
 
         // GET api/<SpecialityController>/5
         [HttpGet("speciality/{id}")]
         public async Task<ActionResult<Speciality>> GetById(int id)
         {
-            try
+            var speciality = await _specialityService.GetById(id);
+            if (speciality == null)
             {
-                var speciality = await _specialityService.GetById(id);
-
-                if (speciality == null)
-                {
-                    return NotFound($"Speciality with ID {id} not found");
-                }
-
-                return Ok(speciality);
+                return NotFound($"Speciality with ID {id} not found");
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return Ok(speciality);
         }
 
         [HttpGet("filterSpecialities/{query}")]
         public async Task<ActionResult<ICollection<Speciality>>> GetFilteredSpecialities(string query)
         {
-            try
-            {
-                var specialities = await _specialityService.GetFilteredSpecialities(query);
-                return Ok(specialities);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var specialities = await _specialityService.GetFilteredSpecialities(query);
+            return Ok(specialities);
         }
 
         // PUT api/<SpecialityController>/5
         [HttpPut("update")]
         public async Task<ActionResult<SpecialityModel>> Update([FromBody] UpdateSpecialityModel specialityModel)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                var existingSpeciality = await _specialityService.GetById(specialityModel.Id);
-                if (existingSpeciality == null)
-                {
-                    return NotFound();
-                }
-
-                var updatedSpeciality = await _specialityService.Update(specialityModel);
-                return Ok(updatedSpeciality);
+                return BadRequest(ModelState);
             }
-            catch (Exception ex)
+            var existingSpeciality = await _specialityService.GetById(specialityModel.Id);
+            if (existingSpeciality == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal Server Error.\n\n{ex}");
+                return NotFound();
             }
+            
+            var updatedSpeciality = await _specialityService.Update(specialityModel);
+            return Ok(updatedSpeciality);
         }
     }
 }

@@ -19,33 +19,16 @@ namespace AccessManagementApp.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(RegisterModel registerModel)
         {
-           // try
-           // {
-              //  if (!registerModel.IsValid())
-             //   {
-             //       return BadRequest();
-              //  }
-                var user = await _authService.RegisterAsync(registerModel);
-                return Ok(user);
-           // }
-          //  catch (Exception ex)
-          //  {
-           //     return StatusCode(500, $"Internal server error: {ex.Message}");
-            //}
+            var user = await _authService.RegisterAsync(registerModel);
+            return Ok(user);
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<AuthUser>> Login(LoginModel loginModel)
         {
-           // try
-           // {
-                var authUser = await _authService.Login(loginModel);
-                return Ok(authUser);
-           // }
-           // catch (Exception ex)
-           // {
-              //  return StatusCode(500, $"Internal server error: {ex.Message}");
-           // }
+            var authUser = await _authService.Login(loginModel);
+            return Ok(authUser);
+
         }
     }
 }
